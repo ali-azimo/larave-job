@@ -10,8 +10,11 @@ class Contascontroller extends Controller
 {
     //Listar contas
     public function index(){
+        //Obter contas (where('nome',200)->)
+        $contas = Contas::orderByDesc('created_at')->get();
+
        //carregar view
-       return view('contas.index');
+       return view('contas.index', ['contas'=>$contas]);
     }
     //Carregar formulario cadastrar nove conta
     public function create(){
@@ -22,7 +25,7 @@ class Contascontroller extends Controller
     public function store(ContasRequest $request){
         //Validar dados vindos do formulario
         $request->validated();
-        
+
        //Cadasrar no banco
        Contas::create($request->all());
 
